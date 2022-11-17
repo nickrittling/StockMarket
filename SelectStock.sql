@@ -1,0 +1,1 @@
+﻿SELECT  * FROM [Stocks] WHERE [Stocks].Symbol ='NFLX';

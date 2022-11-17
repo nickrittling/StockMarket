@@ -1,0 +1,6 @@
+﻿
+INSERT INTO [Stocks] 
+VALUES (8,'NVDA','NVIDIA Corporation',162.95,128.6,86.50,138.25),
+(9,'T','AT&T Inc',19.06,18.35,15.19,18.42),
+(10,'CSCO','Cisco Systems',113.34,110.6,97.50,85.34),
+(11,'SHEL','Shell PLC',56.69,55.29,51.50,46.25)

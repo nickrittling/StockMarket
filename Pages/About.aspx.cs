@@ -25,7 +25,7 @@ namespace Stock_Market
             DataSet ds = data.ExecuteSelect(sql);
             // currentStock.Symbol= ds.Tables[0].Rows[0][2];
             //currentStock.Name = ;
-            currentStock.CurrentPrice = 29.22;
+            currentStock.CurrentPrice = 29.22M;
             GridView.DataSource = ds;
             GridView.DataBind();
          }

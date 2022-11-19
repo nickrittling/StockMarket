@@ -18,7 +18,7 @@ namespace Stock_Market.DB
         {
             conn = new SqlConnection();
 
-            conn.ConnectionString = "Server=ss.cs.luc.edu;uid=ovelichko;pwd=p60024;" +
+            conn.ConnectionString = "Server=ss.cs.luc.edu;uid=nrittling;pwd=p02372;" +
                   "Initial Catalog=Market";
             conn.Open();
 

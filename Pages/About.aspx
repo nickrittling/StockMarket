@@ -22,11 +22,11 @@
     </div>
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Enter amount:</label>
-        <asp:TextBox class="form-control" ID="amount" runat="server" Text="0:00"></asp:TextBox>
+        <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
     </div>
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
-         <asp:TextBox class="form-control" ID="total" runat="server" Text="0:00"></asp:TextBox>
+         <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
   

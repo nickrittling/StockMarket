@@ -1,12 +1,16 @@
-﻿using Stock_Market.DB;
+﻿using Microsoft.AspNet.Identity;
+using Stock_Market.DB;
 using Stock_Market.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Schema;
 
 namespace Stock_Market
 {
@@ -14,6 +18,12 @@ namespace Stock_Market
     {
         SqlConnections data;
         Stock currentStock = new Stock();
+        double totalCost = 0;
+        int NumberShares = 0;
+        
+
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
           data = new SqlConnections();
@@ -23,32 +33,49 @@ namespace Stock_Market
         {
             string sql = "SELECT [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol ='"+ SqlConnections.CurrentStockSymbol+"';"; 
             DataSet ds = data.ExecuteSelect(sql);
-            // currentStock.Symbol= ds.Tables[0].Rows[0][2];
-            //currentStock.Name = ;
-            currentStock.CurrentPrice = 29.22;
+            currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);
+            currentStock.Symbol= Convert.ToString(ds.Tables[0].Rows[0][1]);
             GridView.DataSource = ds;
             GridView.DataBind();
+            
          }
 
+        public void Trade()
+        {
+            while
+        }
 
         public void Buy()
         {
-            msg.Text = "You dont have enought funds!!!";
+            if(SqlConnections.currentUser.Funds < totalCost)
+            {
+                msg.Text = "You don't have enough funds !";
+            }
+            else
+            {
+                DateTime today = new DateTime();
+                Transaction buyingStock = new Transaction
+                (1, SqlConnections.CurrentUserId,currentStock.Id,
+                NumberShares, currentStock.CurrentPrice,today);
+                data.InsertTransaction(buyingStock);    
+
+            }
+
+            
         }
         public void Sell()
         {
+           
             msg.Text = "You sold X stocks !!!";
         }
 
         protected void SelectedIndexChanged(object sender, EventArgs e)
+
         {
-            if (ColorList.SelectedValue == "Buy")
+            totalCost = Int32.Parse(total.Text);
+            if (ActionList.SelectedValue == "Buy")
 
             {
-                //int numberShares = int.Parse(amount.Text);
-                //total.Text = (numberShares * currentStock.CurrentPrice).ToString();
-                total.Text = amount.Text;
-
                 Buy();
             }
             else
@@ -60,9 +87,13 @@ namespace Stock_Market
         protected void Submit_Click(object sender, EventArgs e)
         {
 
+
         }
 
-
-
+        public void checkFunds()
+        {
+            
+        }
     }
 }
+

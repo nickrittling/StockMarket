@@ -24,13 +24,13 @@ namespace Stock_Market
         protected global::System.Web.UI.WebControls.GridView GridView;
 
         /// <summary>
-        /// ColorList control.
+        /// ActionList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ColorList;
+        protected global::System.Web.UI.WebControls.DropDownList ActionList;
 
         /// <summary>
         /// amount control.

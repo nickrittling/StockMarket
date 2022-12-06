@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Stock trading:" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="Stock_Market.About" %>
+﻿<%@ Page Title="Stock trading:" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SelectedStock.aspx.cs" Inherits="Stock_Market.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container" style="margin-top:25px">
@@ -10,23 +10,23 @@
    
     <div class="col-sm-4" style="display:inline" >
          <label for="formGroupExampleInput">Select action:</label>
-           <asp:DropDownList id="ColorList"
+           <asp:DropDownList id="ActionList"
              AutoPostBack="True"
              OnSelectedIndexChanged="SelectedIndexChanged"
              class="form-control"
              runat="server">
-           <asp:ListItem Selected="True"></asp:ListItem>           
+           <asp:ListItem Selected="True"></asp:ListItem>           <a href="SelectedStock.aspx">SelectedStock.aspx</a>
            <asp:ListItem Selected="False" Value="Buy"> Buy </asp:ListItem>
            <asp:ListItem Value="Sell"> Sell </asp:ListItem>
         </asp:DropDownList>
     </div>
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Enter amount:</label>
-        <asp:TextBox class="form-control" ID="amount" runat="server" Text="0:00"></asp:TextBox>
+        <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
     </div>
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
-         <asp:TextBox class="form-control" ID="total" runat="server" Text="0:00"></asp:TextBox>
+         <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
   
@@ -34,13 +34,7 @@
        <asp:Button CssClass="btn btn-primary" ID="Submit" Text="Submit" OnClick="Submit_Click" runat="server"/>
 
   </div>
-         
-
-         
-         
-
-        
-        <asp:Literal ID="msg" runat="server"></asp:Literal>
+      <asp:Literal ID="msg" runat="server"></asp:Literal>
 
     </div>
 

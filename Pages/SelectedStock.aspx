@@ -13,9 +13,10 @@
            <asp:DropDownList id="ActionList"
              AutoPostBack="True"
              OnSelectedIndexChanged="SelectedIndexChanged"
+              
              class="form-control"
              runat="server">
-           <asp:ListItem Selected="True"></asp:ListItem>           <a href="SelectedStock.aspx">SelectedStock.aspx</a>
+           <asp:ListItem Selected="True"></asp:ListItem>           
            <asp:ListItem Selected="False" Value="Buy"> Buy </asp:ListItem>
            <asp:ListItem Value="Sell"> Sell </asp:ListItem>
         </asp:DropDownList>

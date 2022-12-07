@@ -20,29 +20,35 @@ namespace Stock_Market
         Stock currentStock = new Stock();
         double totalCost = 0;
         int NumberShares = 0;
+        string transaction= "Buy";
+        bool trading = true;
         
-
        
 
         protected void Page_Load(object sender, EventArgs e)
         {
           data = new SqlConnections();
           SelectStock();
+          //Trade();
         }
         public void SelectStock()
         {
-            string sql = "SELECT [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol ='"+ SqlConnections.CurrentStockSymbol+"';"; 
+            string sql = "SELECT [Id], [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol ='"+ SqlConnections.CurrentStockSymbol+"';"; 
             DataSet ds = data.ExecuteSelect(sql);
-            currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);
-            currentStock.Symbol= Convert.ToString(ds.Tables[0].Rows[0][1]);
+            currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);// price from the table
+            currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]); 
             GridView.DataSource = ds;
             GridView.DataBind();
-            
-         }
+
+        }
 
         public void Trade()
         {
-            while
+            while (trading)
+            {
+                totalCost = Convert.ToDouble(amount.Text) * currentStock.CurrentPrice;
+                total.Text = Convert.ToString(totalCost);
+            }
         }
 
         public void Buy()
@@ -53,41 +59,67 @@ namespace Stock_Market
             }
             else
             {
-                DateTime today = new DateTime();
+                DateTime dateTime = DateTime.UtcNow.Date;
+                string td = dateTime.ToString("dd/MM/yyyy");
                 Transaction buyingStock = new Transaction
-                (1, SqlConnections.CurrentUserId,currentStock.Id,
-                NumberShares, currentStock.CurrentPrice,today);
-                data.InsertTransaction(buyingStock);    
+
+                (2, SqlConnections.CurrentUserId, currentStock.Id,
+                NumberShares, currentStock.CurrentPrice, td);
+                data.InsertTransaction(buyingStock);
+                updateUserFund();
+                msg.Text = "Congratulation, you bought " + NumberShares+" of "+currentStock.Symbol+" spending "+ totalCost;
+
+
+                Response.Redirect("/Pages/Contact");
 
             }
-
             
         }
+        public void updateUserFund()
+        {
+            totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * currentStock.CurrentPrice);
+            double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
+            string sql = "SET IDENTITY_INSERT Transactions ON Update Users Set Funds =" + userNewFunds + " WHERE Id = " + SqlConnections.CurrentUserId + ";";
+
+            data.ExecuteAction(sql);
+        }
+
+       
         public void Sell()
         {
-           
+           // find in transaction table current user and current stock
             msg.Text = "You sold X stocks !!!";
         }
 
         protected void SelectedIndexChanged(object sender, EventArgs e)
 
         {
-            totalCost = Int32.Parse(total.Text);
-            if (ActionList.SelectedValue == "Buy")
+            totalCost = Convert.ToDouble(amount.Text)*currentStock.CurrentPrice;// calculate total price
+            total.Text = Convert.ToString(totalCost);//display it
 
+            
+
+            if(ActionList.SelectedValue == "Buy")
             {
-                Buy();
-            }
-            else
+                transaction = "Buy";
+            }else if (ActionList.SelectedValue == "Sell")
             {
-                Sell();
+                transaction = "Sell";
             }
+
+           // transaction = ActionList.SelectedValue;// set the trade : sell OR BUY
+            
         }
 
         protected void Submit_Click(object sender, EventArgs e)
         {
-
-
+            NumberShares = int.Parse(amount.Text);// assign number shares
+            if (transaction == "Buy") { Buy();}
+            else if(transaction=="Sell") { Sell(); }
+            else
+            {
+                msg.Text = "Didn't FUCKING select action";
+            }
         }
 
         public void checkFunds()

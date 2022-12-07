@@ -4,7 +4,7 @@
     <div class="container" style="margin-top:25px">
      <h2 class="text-center"><%: Title %></h2>
     
-    <asp:GridView ID ="GridView" runat="server" AutoGenerateColumns="True"  class="table table-hover" GridLines="none" ></asp:GridView>
+    <asp:GridView ID ="GridView" runat="server" AutoGenerateColumns="True" class="table table-hover" GridLines="none"></asp:GridView>
 
   <div class="row">
    

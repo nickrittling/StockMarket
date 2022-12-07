@@ -12,8 +12,8 @@ namespace Stock_Market.Models
         public int StockID { get; set; }
         public int StockAmount { get;set; }
         public double TransactionPrice { get; set; }
-        public DateTime dateTime { get; set; }
-        public Transaction(int id, int userID, int stockID, int stockAmount, double transactionPrice, DateTime dateTime)
+        public string dateTime { get; set; }
+        public Transaction(int id, int userID, int stockID, int stockAmount, double transactionPrice, string dateTime)
         {
             Id = id;
             UserID = userID;

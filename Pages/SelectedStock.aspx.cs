@@ -20,7 +20,7 @@ namespace Stock_Market
         Stock currentStock = new Stock();
         double totalCost = 0;
         int NumberShares = 0;
-        string transaction= "Buy";
+        string transaction;
         bool trading = true;
         
        
@@ -59,18 +59,18 @@ namespace Stock_Market
             }
             else
             {
-                DateTime dateTime = DateTime.UtcNow.Date;
-                string td = dateTime.ToString("dd/MM/yyyy");
-                Transaction buyingStock = new Transaction
+                //DateTime dateTime = DateTime.UtcNow.Date;
+                //string td = dateTime.ToString("dd/MM/yyyy");
+                //Transaction buyingStock = new Transaction
 
-                (2, SqlConnections.CurrentUserId, currentStock.Id,
-                NumberShares, currentStock.CurrentPrice, td);
-                data.InsertTransaction(buyingStock);
-                updateUserFund();
+                //(2, SqlConnections.CurrentUserId, currentStock.Id,
+                //NumberShares, currentStock.CurrentPrice, td);
+                //data.InsertTransaction(buyingStock);
+                //updateUserFund();
                 msg.Text = "Congratulation, you bought " + NumberShares+" of "+currentStock.Symbol+" spending "+ totalCost;
 
 
-                Response.Redirect("/Pages/Contact");
+              //  Response.Redirect("/Pages/Contact");
 
             }
             
@@ -101,10 +101,13 @@ namespace Stock_Market
 
             if(ActionList.SelectedValue == "Buy")
             {
-                transaction = "Buy";
+                SqlConnections.currentTrade = "Buy";
+                msg.Text = "you selected Buying";
+
             }else if (ActionList.SelectedValue == "Sell")
             {
-                transaction = "Sell";
+                SqlConnections.currentTrade = "Sell";
+                msg.Text = "you selected Selling";
             }
 
            // transaction = ActionList.SelectedValue;// set the trade : sell OR BUY
@@ -114,11 +117,14 @@ namespace Stock_Market
         protected void Submit_Click(object sender, EventArgs e)
         {
             NumberShares = int.Parse(amount.Text);// assign number shares
-            if (transaction == "Buy") { Buy();}
-            else if(transaction=="Sell") { Sell(); }
-            else
-            {
-                msg.Text = "Didn't FUCKING select action";
+
+            
+            if (SqlConnections.currentTrade == "Buy") { 
+                Buy();
+            } else if(SqlConnections.currentTrade == "Sell") {
+                Sell();
+            }else {
+                msg.Text = "Didn't select action";
             }
         }
 

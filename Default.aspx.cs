@@ -36,7 +36,7 @@ namespace Stock_Market
 
                 SqlConnections.CurrentStockSymbol = currectStock;
 
-                Response.Redirect("/Pages/About");
+                Response.Redirect("/Pages/SelectedStock");
 
 
 

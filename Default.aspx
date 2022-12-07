@@ -4,7 +4,7 @@
     <div class="container">
         <div class="text-center">
             <h1>Stock Market</h1>
-           <p style="font-size:24px; font-weight:bolder;color:darkgray"><asp:Literal ID="date" runat="server"></asp:Literal></p> 
+           <p style ="font-size:24px; font-weight:bolder; color:darkgray"><asp:Literal ID="date" runat="server"></asp:Literal></p> 
         </div>
 
    

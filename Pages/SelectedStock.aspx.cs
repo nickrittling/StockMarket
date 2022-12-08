@@ -19,17 +19,18 @@ namespace Stock_Market
         SqlConnections data;
         Stock currentStock = new Stock();
         double totalCost = 0;
-        int NumberShares = 0;
-        string transaction= "Buy";
+        int NumberShares;
         bool trading = true;
+        DBLocal localDB;
         
        
 
         protected void Page_Load(object sender, EventArgs e)
         {
           data = new SqlConnections();
+          localDB = new DBLocal();
           SelectStock();
-          //Trade();
+
         }
         public void SelectStock()
         {
@@ -42,14 +43,6 @@ namespace Stock_Market
 
         }
 
-        public void Trade()
-        {
-            while (trading)
-            {
-                totalCost = Convert.ToDouble(amount.Text) * currentStock.CurrentPrice;
-                total.Text = Convert.ToString(totalCost);
-            }
-        }
 
         public void Buy()
         {
@@ -69,13 +62,12 @@ namespace Stock_Market
                 updateUserFund();
                 msg.Text = "Congratulation, you bought " + NumberShares+" of "+currentStock.Symbol+" spending "+ totalCost;
 
-
                 Response.Redirect("/Pages/Contact");
 
             }
             
         }
-        public void updateUserFund()
+        public void updateUserFund()// BUYING
         {
             totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * currentStock.CurrentPrice);
             double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
@@ -87,8 +79,17 @@ namespace Stock_Market
        
         public void Sell()
         {
-           // find in transaction table current user and current stock
-            msg.Text = "You sold X stocks !!!";
+            NumberShares = int.Parse(amount.Text);
+            // find in transaction table current user and current stock
+            if (localDB.FindStock(currentStock.Id)< NumberShares)
+            {
+                msg.Text = "You don't have enought shares to sell";
+            }
+            else
+            {
+                // make transaction WITH NEGATIVE NUMBER!!
+                // update funds
+            }
         }
 
         protected void SelectedIndexChanged(object sender, EventArgs e)
@@ -101,24 +102,26 @@ namespace Stock_Market
 
             if(ActionList.SelectedValue == "Buy")
             {
-                transaction = "Buy";
+                DBLocal.currentTrade = "Buy";
             }else if (ActionList.SelectedValue == "Sell")
             {
-                transaction = "Sell";
+                DBLocal.currentTrade = "Sell";
             }
 
-           // transaction = ActionList.SelectedValue;// set the trade : sell OR BUY
-            
         }
 
         protected void Submit_Click(object sender, EventArgs e)
         {
             NumberShares = int.Parse(amount.Text);// assign number shares
-            if (transaction == "Buy") { Buy();}
-            else if(transaction=="Sell") { Sell(); }
-            else
+            if (DBLocal.currentTrade == "Buy") {
+                Buy();
+
+            } else if(DBLocal.currentTrade == "Sell") { 
+                Sell(); 
+
+            }else
             {
-                msg.Text = "Didn't FUCKING select action";
+                msg.Text = "Didn't select action";
             }
         }
 

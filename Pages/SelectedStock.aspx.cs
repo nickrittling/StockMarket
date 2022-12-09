@@ -17,13 +17,11 @@ namespace Stock_Market
     public partial class About : Page
     {
         SqlConnections data;
-        Stock currentStock = new Stock();
-        double totalCost = 0;
+        double totalCost;
         int NumberShares;
-        bool trading = true;
         DBLocal localDB;
+        DateTime dateTime = DateTime.Now;
         
-       
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,8 +34,8 @@ namespace Stock_Market
         {
             string sql = "SELECT [Id], [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol ='"+ SqlConnections.CurrentStockSymbol+"';"; 
             DataSet ds = data.ExecuteSelect(sql);
-            currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);// price from the table
-            currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]); 
+            SqlConnections.currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);// price from the table
+            SqlConnections. currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]); 
             GridView.DataSource = ds;
             GridView.DataBind();
 
@@ -46,56 +44,67 @@ namespace Stock_Market
 
         public void Buy()
         {
-            if(SqlConnections.currentUser.Funds < totalCost)
+            totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
+            double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
+
+            if (SqlConnections.currentUser.Funds < totalCost)
             {
                 msg.Text = "You don't have enough funds !";
             }
             else
             {
-                DateTime dateTime = DateTime.UtcNow.Date;
                 string td = dateTime.ToString("dd/MM/yyyy");
                 Transaction buyingStock = new Transaction
 
-                (2, SqlConnections.CurrentUserId, currentStock.Id,
-                NumberShares, currentStock.CurrentPrice, td);
+                (SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
+                NumberShares, SqlConnections.currentStock.CurrentPrice, td,"Bough");
                 data.InsertTransaction(buyingStock);
-                updateUserFund();
-                msg.Text = "Congratulation, you bought " + NumberShares+" of "+currentStock.Symbol+" spending "+ totalCost;
+                updateUserFund(userNewFunds);
+                msg.Text = "Congratulation, you bought " + NumberShares+" of "+ SqlConnections. currentStock.Symbol+" spending "+ totalCost;
 
-                Response.Redirect("/Pages/Contact");
+              //  Response.Redirect("/Pages/Contact");
 
             }
             
         }
-        public void updateUserFund()// BUYING
+        public void updateUserFund(double userNewFunds)// BUYING
         {
-            totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * currentStock.CurrentPrice);
-            double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
-            string sql = "SET IDENTITY_INSERT Transactions ON Update Users Set Funds =" + userNewFunds + " WHERE Id = " + SqlConnections.CurrentUserId + ";";
 
+            string sql = "SET IDENTITY_INSERT Transactions ON Update Users Set Funds =" + userNewFunds + " WHERE Id = " + SqlConnections.currentUser.Id + ";";
             data.ExecuteAction(sql);
         }
 
        
         public void Sell()
         {
+            totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
+            double userNewFunds = SqlConnections.currentUser.Funds + totalCost;
+
+            string td = dateTime.ToString("dd/MM/yyyy");
             NumberShares = int.Parse(amount.Text);
             // find in transaction table current user and current stock
-            if (localDB.FindStock(currentStock.Id)< NumberShares)
+            if (localDB.FindStock(SqlConnections.currentStock.Id)< NumberShares)
             {
-                msg.Text = "You don't have enought shares to sell";
+                msg.Text = "You don't have enough shares to sell";
             }
             else
             {
-                // make transaction WITH NEGATIVE NUMBER!!
-                // update funds
+                Transaction sellingStock = new Transaction
+
+               (SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
+               -NumberShares, SqlConnections.currentStock.CurrentPrice, td,"Sold");
+                
+                data.InsertTransaction(sellingStock);
+                updateUserFund(userNewFunds);
+
+                msg.Text = "Congratulation, you sold " + NumberShares + " of " + SqlConnections.currentStock.Symbol + " getting " + totalCost;
             }
         }
 
         protected void SelectedIndexChanged(object sender, EventArgs e)
 
         {
-            totalCost = Convert.ToDouble(amount.Text)*currentStock.CurrentPrice;// calculate total price
+            totalCost = Convert.ToDouble(amount.Text)* SqlConnections.currentStock.CurrentPrice;// calculate total price
             total.Text = Convert.ToString(totalCost);//display it
 
             
@@ -123,11 +132,6 @@ namespace Stock_Market
             {
                 msg.Text = "Didn't select action";
             }
-        }
-
-        public void checkFunds()
-        {
-            
         }
     }
 }

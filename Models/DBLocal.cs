@@ -13,14 +13,15 @@ namespace Stock_Market.DB
        
         List < Transaction > localTransactionsDB = new List<Transaction>();
         Dictionary <int, int> currectUserStocks = new Dictionary<int, int>(); //Save stock id and number of stocks
-        readonly SqlConnections data;
+        readonly SqlConnections data = new SqlConnections();
         public static string currentTrade;
+
+   
 
         public DBLocal()
         {
-            RetriveCurrectUserStocks();
-            data = new SqlConnections();
-
+            
+            RetriveCurrectUserStocks();  
         }
 
 

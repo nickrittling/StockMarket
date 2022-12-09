@@ -30,13 +30,16 @@
          <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
+        <div>
+            <asp:Literal ID="pendingOrder" runat="server"></asp:Literal>     
+            <asp:Literal ID="pendingOrderString" runat="server"></asp:Literal>    
+        </div>
   
    <div style="margin:30px" >
        <asp:Button CssClass="btn btn-primary" ID="Submit" Text="Submit" OnClick="Submit_Click" runat="server"/>
 
-  </div>
+     </div>
       <asp:Literal ID="msg" runat="server"></asp:Literal>
-
     </div>
 
    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MarketConnectionString %>" 

@@ -39,6 +39,8 @@ namespace Stock_Market
             GridView.DataSource = ds;
             GridView.DataBind();
 
+           
+
         }
 
 
@@ -132,6 +134,17 @@ namespace Stock_Market
             {
                 msg.Text = "Didn't select action";
             }
+        }
+
+        public void PendingOrders()
+        {
+            Transaction tr = localDB.FindPendingOrder(SqlConnections.currentStock.Id);
+            if (tr.StockAmount > 0)
+            {
+                pendingOrder.Text = "Order status     Quantity     LimitPrice";
+                pendingOrderString.Text = " Pending     " + tr.StockAmount + "    ";
+            }
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Stock_Market
         SqlConnections data;
         double totalCost;
         int NumberShares;
-        DBLocal localDB;
+       DBLocal localDB;
         DateTime dateTime = DateTime.Now;
         
 
@@ -60,7 +60,7 @@ namespace Stock_Market
                 NumberShares, SqlConnections.currentStock.CurrentPrice, td,"Bough");
                 data.InsertTransaction(buyingStock);
                 updateUserFund(userNewFunds);
-                msg.Text = "Congratulation, you bought " + NumberShares+" of "+ SqlConnections. currentStock.Symbol+" spending "+ totalCost;
+                msg.Text = "Congratulation, you bought " + NumberShares+" of "+ SqlConnections.CurrentStockSymbol + " spending "+ totalCost+" $";
 
               //  Response.Redirect("/Pages/Contact");
 
@@ -97,7 +97,7 @@ namespace Stock_Market
                 data.InsertTransaction(sellingStock);
                 updateUserFund(userNewFunds);
 
-                msg.Text = "Congratulation, you sold " + NumberShares + " of " + SqlConnections.currentStock.Symbol + " getting " + totalCost;
+                msg.Text = "Congratulation, you sold " + NumberShares + " of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost + " $";
             }
         }
 

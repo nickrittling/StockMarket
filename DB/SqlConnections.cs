@@ -16,11 +16,12 @@ namespace Stock_Market.DB
 {
     public class SqlConnections
     {
-        public static string CurrentStockSymbol = null;
-        public static int CurrentUserId = 4;
+        public static Stock currentStock = new Stock();
         public static User currentUser = new User();
+        public static string CurrentStockSymbol = null;
         private SqlConnection conn;
-        public static string currentTrade;
+
+
 
         public SqlConnections()
         {
@@ -29,11 +30,11 @@ namespace Stock_Market.DB
             conn.ConnectionString = "Server=ss.cs.luc.edu;uid=ovelichko;pwd=******;" +
                   "Initial Catalog=Market";
             conn.Open();
-
+            currentUser.Id = 3; // THIS MUST COME FROM SIGN UP FORM
             ReturnUser();
 
-
         }
+
         public DataSet ExecuteSelect(string sql)
         {
             SqlDataAdapter da = new SqlDataAdapter(sql, conn);
@@ -51,7 +52,7 @@ namespace Stock_Market.DB
 
         public void ReturnUser()
         {
-            string sql = "SELECT * from Users Where Id = " + CurrentUserId + "; ";
+            string sql = "SELECT * from Users Where Id = " + currentUser.Id + "; ";
             DataSet user = ExecuteSelect(sql);
             currentUser.FirstName = Convert.ToString(user.Tables[0].Rows[0][1]);
             currentUser.LastName = Convert.ToString(user.Tables[0].Rows[0][2]);
@@ -60,14 +61,16 @@ namespace Stock_Market.DB
         }
 
         public void InsertTransaction(Transaction tr)
-        {
-            string sql = " SET IDENTITY_INSERT Transactions ON INSERT INTO Transactions(TransactionId, UserID, StockID, StockAmount, Price, Trade) Values( 2 ," + tr.UserID + "," + tr.StockID + "," + tr.StockAmount + "," + tr.TransactionPrice + ",'Bought');";
+        {       
+            string sql = " SET IDENTITY_INSERT Transactions ON INSERT INTO Transactions(TransactionId, UserID, StockID, StockAmount, Price, Trade)" +
+                " Values("+ tr.Id+" ," + tr.UserID + "," + tr.StockID + "," + tr.StockAmount + "," + tr.TransactionPrice + ",'"+tr.Trade+"');";
             int result = ExecuteAction(sql);
 
-
-
-
         }
+
+        
+
+         
     }
 }
 

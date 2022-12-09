@@ -15,8 +15,6 @@ namespace Stock_Market
         {
             DateTime dateTime = DateTime.UtcNow.Date;
             date.Text = dateTime.ToString("dd/MM/yyyy");
-            SqlConnections data = new SqlConnections();
-
         }
         protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)
         {

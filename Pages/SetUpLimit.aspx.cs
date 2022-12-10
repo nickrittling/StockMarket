@@ -38,6 +38,7 @@ namespace Stock_Market
                 SqlConnections.currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
                 GridView.DataSource = ds;
                 GridView.DataBind();
+
                 //total.Text = "0.00";
                 //amount.Text = "0.00";
 
@@ -53,10 +54,12 @@ namespace Stock_Market
         }
 
 
+
             public void Buy()
             {
                 totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
                 double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
+
                 
 
                 if (SqlConnections.currentUser.Funds < totalCost)
@@ -113,11 +116,13 @@ namespace Stock_Market
 
                     msg.Text = "Congratulation, you set the limit to sell " + NumberShares + "shares of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost + " $";
                 }
+
             }
 
             protected void SelectedIndexChanged(object sender, EventArgs e)
 
             {
+
             try
             {
                 totalCost = Convert.ToDouble(amount.Text) * SqlConnections.currentStock.CurrentPrice;// calculate total price
@@ -127,6 +132,7 @@ namespace Stock_Market
             {
                 msg.Text = "Enter the limit";
             }
+
 
 
 
@@ -157,16 +163,20 @@ namespace Stock_Market
                 {
                     Buy();
 
+
+
                 }
                 else if (DBLocal.currentTrade == "Sell")
                 {
                     Sell();
+
 
                 }
                 else
                 {
                     msg.Text = "Didn't select action";
                 }
+
             }
         }
     }

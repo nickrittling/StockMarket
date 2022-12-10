@@ -1,3 +1,4 @@
+
 ﻿<%@ Page Title="Set up the limit" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SetUpLimit.aspx.cs" Inherits="Stock_Market.SetUpLimit" %>
 
 
@@ -9,7 +10,9 @@
 
   <div class="row">
    
+
     <div class="col-sm-4" style="display:inline" >
+
          <label for="formGroupExampleInput">Select action:</label>
            <asp:DropDownList id="ActionList"
              AutoPostBack="True"
@@ -21,6 +24,7 @@
            <asp:ListItem Value="Sell"> Sell </asp:ListItem>
         </asp:DropDownList>
     </div>
+
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Limit price</label>
         <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
@@ -28,6 +32,7 @@
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
          <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
+
     </div>
   </div>
   

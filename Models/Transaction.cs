@@ -12,11 +12,11 @@ namespace Stock_Market.Models
         public int Id { get; }
         public int UserID { get; set; }
         public int StockID { get; set; }
-        public int StockAmount { get;set; }
+        public float StockAmount { get;set; }
         public double TransactionPrice { get; set; }
         public string dateTime { get; set; }
         public string Trade { get; set; }
-        public Transaction( int userID, int stockID, int stockAmount, double transactionPrice, string dateTime, string trade)
+        public Transaction( int userID, int stockID, float stockAmount, double transactionPrice, string dateTime, string trade)
         {
             Id = getID();
             UserID = userID;
@@ -25,6 +25,13 @@ namespace Stock_Market.Models
             TransactionPrice = transactionPrice;
             this.dateTime = dateTime;
             this.Trade = trade;  
+        }
+        public Transaction( int stockID, float stockAmount, double transactionPrice, string trade)
+        {
+            StockID = stockID;
+            StockAmount = stockAmount;
+            TransactionPrice = transactionPrice;
+            Trade = trade;
         }
 
         public int getID()

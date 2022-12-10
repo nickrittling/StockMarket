@@ -42,6 +42,8 @@ namespace Stock_Market
         protected global::System.Web.UI.WebControls.TextBox amount;
 
         /// <summary>
+
+
         /// total control.
         /// </summary>
         /// <remarks>

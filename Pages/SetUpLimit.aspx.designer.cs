@@ -11,7 +11,7 @@ namespace Stock_Market
 {
 
 
-    public partial class About
+    public partial class SetUpLimit
     {
 
         /// <summary>
@@ -42,6 +42,15 @@ namespace Stock_Market
         protected global::System.Web.UI.WebControls.TextBox amount;
 
         /// <summary>
+        /// limitPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox limitPrice;
+
+        /// <summary>
         /// total control.
         /// </summary>
         /// <remarks>
@@ -49,33 +58,6 @@ namespace Stock_Market
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox total;
-
-        /// <summary>
-        /// orderStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal orderStatus;
-
-        /// <summary>
-        /// quantity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal quantity;
-
-        /// <summary>
-        /// price control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal price;
 
         /// <summary>
         /// Submit control.

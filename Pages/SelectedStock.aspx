@@ -25,18 +25,39 @@
          <label for="formGroupExampleInput">Enter amount:</label>
         <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
     </div>
+     
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
          <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
+        <div style="margin-top:20px ; border-radius:20px; width:300px; background-color:lightcyan ;display:none">
+            <table class='table table-borderless'>
+                <tr >
+                    <th>Order:</th>
+                    <th>Quantity</th>                  
+                    <th>Order price</th>
+                </tr>
+                <tr>
+                 <td>
+                    <asp:Literal ID="orderStatus" runat="server"></asp:Literal>
+                </td>
+                <td>
+                   <asp:Literal ID="quantity" runat="server"></asp:Literal>
+                </td>
+                <td>
+                   <asp:Literal ID="price" runat="server"></asp:Literal>
+               </td>
+                                           
+                </tr>                
+            </table>           
+        </div>
   
    <div style="margin:30px" >
        <asp:Button CssClass="btn btn-primary" ID="Submit" Text="Submit" OnClick="Submit_Click" runat="server"/>
 
-  </div>
+     </div>
       <asp:Literal ID="msg" runat="server"></asp:Literal>
-
     </div>
 
    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MarketConnectionString %>" 

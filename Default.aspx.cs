@@ -13,31 +13,29 @@ namespace Stock_Market
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            DateTime dateTime = DateTime.UtcNow.Date;
+            DateTime dateTime = DateTime.Now;
             date.Text = dateTime.ToString("dd/MM/yyyy");
         }
         protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)
         {
-            // If multiple ButtonField column fields are used, use the
-            // CommandName property to determine which button was clicked.
+
+            // Convert the row index stored in the CommandArgument
+            // property to an Integer.
+            int index = Convert.ToInt32(e.CommandArgument);
+
+
+            GridViewRow selectedRow = GridView1.Rows[index];
+            TableCell stockName = selectedRow.Cells[0];
+            string currectStock = stockName.Text;
+
+            SqlConnections.CurrentStockSymbol = currectStock;
             if (e.CommandName == "Trade")
-            {
-
-                // Convert the row index stored in the CommandArgument
-                // property to an Integer.
-                int index = Convert.ToInt32(e.CommandArgument);
-
-                
-                GridViewRow selectedRow = GridView1.Rows[index];
-                TableCell stockName = selectedRow.Cells[0];
-                string currectStock= stockName.Text;
-
-                SqlConnections.CurrentStockSymbol = currectStock;
-
+            { 
                 Response.Redirect("/Pages/SelectedStock");
-
-
-
+            }
+            else
+            {
+                Response.Redirect("/Pages/SetUpLimit");
             }
 
         }

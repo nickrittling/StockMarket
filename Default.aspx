@@ -18,8 +18,11 @@
             <asp:BoundField DataField="WeeklyPrice" HeaderText="Weekly Price" SortExpression="WeeklyPrice" />
             <asp:BoundField DataField="MonthlyPrice" HeaderText="Monthly Price" SortExpression="MonthlyPrice" />
             <asp:BoundField DataField="ThreeMonthPrice" HeaderText="Three Month Price" SortExpression="ThreeMonthPrice"></asp:BoundField>
-            <asp:ButtonField ButtonType="Button" CommandName="Trade" Text="Trade">
-            <ControlStyle  CssClass="btn btn-primary" />
+            <asp:ButtonField ButtonType="Button" CommandName="Trade" Text="Trade">           
+            <ControlStyle  CssClass="btn btn-primary"  Width="80px"/>
+            </asp:ButtonField>
+            <asp:ButtonField ButtonType="Button" CommandName="SetLimit" Text="Set Limit">
+            <ControlStyle  CssClass="btn btn-success"  Width="80px" />
             </asp:ButtonField>
         </Columns>
     </asp:GridView>

@@ -38,42 +38,31 @@ namespace Stock_Market
                 SqlConnections.currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
                 GridView.DataSource = ds;
                 GridView.DataBind();
-                //total.Text = "0.00";
-                //amount.Text = "0.00";
-
         }
-
-
-        public void Limits()
-        {
-           // string sql 
-           // find user transactions with status "pending for the selected stock
-           // allow delete the limit and return withdrawn money
-
-        }
-
 
             public void Buy()
             {
                 totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
                 double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
-                 double pricelimit = Convert.ToDouble(limitPrice.Text);
+                double pricelimit = Convert.ToDouble(limitPrice.Text);
 
 
             if (SqlConnections.currentUser.Funds < totalCost)
                 {
-                    msg.Text = "You don't have enough funds !";
-                
+                    msg.Text = "<font style='background : lightblue; padding:30px ; border-radius:20px;font-weight: bold;'> You don't have enough funds ! </font>";
+
             }
                 else
                 {
-                //string td = dateTime.ToString("dd/MM/yyyy");
-                //Transaction buyingStock = new Transaction
+                string td = dateTime.ToString("dd/MM/yyyy");
+                Transaction buyingStock = new Transaction
+                (SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
+                NumberShares, pricelimit, td, "Pending");
 
-                //(SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
-                //NumberShares, SqlConnections.currentStock.CurrentPrice, td, "Pending");
-                //data.InsertTransaction(buyingStock);
-                //updateUserFund(userNewFunds);
+                data.InsertTransaction(buyingStock);
+
+                updateUserFund(userNewFunds);
+                //Display transaction info
                 msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "You set a limit order to buy  " +
                 +NumberShares + " shares of " + SqlConnections.CurrentStockSymbol + "for " + pricelimit + "$ each </font>";
             }
@@ -81,7 +70,6 @@ namespace Stock_Market
             }
             public void updateUserFund(double userNewFunds)
             {
-
                 string sql = "SET IDENTITY_INSERT Transactions ON Update Users Set Funds =" + userNewFunds + " WHERE Id = " + SqlConnections.currentUser.Id + ";";
                 data.ExecuteAction(sql);
             }
@@ -103,16 +91,16 @@ namespace Stock_Market
                 }
                 else
                 {
-                   // Transaction sellingStock = new Transaction
+                Transaction sellingStock = new Transaction
 
-                   //(SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
-                   //-NumberShares, SqlConnections.currentStock.CurrentPrice, td, "Pending");
+               (SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
+               -NumberShares, pricelimit, td, "Pending");
 
-                   // data.InsertTransaction(sellingStock);
-                   // updateUserFund(userNewFunds);
+                data.InsertTransaction(sellingStock);
 
-                   // msg.Text = "Congratulation, you set the limit to sell " + NumberShares + "shares of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost + " $";
-                    msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "You set a limit order to sell  "+                  
+                updateUserFund(userNewFunds);
+
+                msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "You set a limit order to sell  "+                  
                     + NumberShares + " shares of " + SqlConnections.CurrentStockSymbol +"for "+ pricelimit + "$ each </font>";
             }
             }
@@ -120,18 +108,13 @@ namespace Stock_Market
             protected void SelectedIndexChanged(object sender, EventArgs e)
 
             {
-            try
-            {
+            try {
                 totalCost = Convert.ToDouble(amount.Text) * SqlConnections.currentStock.CurrentPrice;// calculate total price
                 total.Text = Convert.ToString(totalCost);//display it
             }
-            catch
-            {
-                msg.Text = "Enter the limit";
+            catch  {
+                msg.Text = "Enter a price limit";
             }
-
-
-
 
                 if (ActionList.SelectedValue == "Buy")
                 {
@@ -158,12 +141,10 @@ namespace Stock_Market
                 if (DBLocal.currentTrade == "Buy")
                 {
                     Buy();
-
                 }
                 else if (DBLocal.currentTrade == "Sell")
                 {
                     Sell();
-
                 }
                 else
                 {

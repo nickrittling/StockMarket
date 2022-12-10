@@ -51,22 +51,31 @@ namespace Stock_Market
         protected global::System.Web.UI.WebControls.TextBox total;
 
         /// <summary>
-        /// pendingOrder control.
+        /// orderStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal pendingOrder;
+        protected global::System.Web.UI.WebControls.Literal orderStatus;
 
         /// <summary>
-        /// pendingOrderString control.
+        /// quantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal pendingOrderString;
+        protected global::System.Web.UI.WebControls.Literal quantity;
+
+        /// <summary>
+        /// price control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal price;
 
         /// <summary>
         /// Submit control.

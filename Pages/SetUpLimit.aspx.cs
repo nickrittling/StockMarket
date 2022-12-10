@@ -57,23 +57,25 @@ namespace Stock_Market
             {
                 totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
                 double userNewFunds = SqlConnections.currentUser.Funds - totalCost;
-                
+                 double pricelimit = Convert.ToDouble(limitPrice.Text);
 
-                if (SqlConnections.currentUser.Funds < totalCost)
+
+            if (SqlConnections.currentUser.Funds < totalCost)
                 {
                     msg.Text = "You don't have enough funds !";
                 
             }
                 else
                 {
-                    //string td = dateTime.ToString("dd/MM/yyyy");
-                    //Transaction buyingStock = new Transaction
+                //string td = dateTime.ToString("dd/MM/yyyy");
+                //Transaction buyingStock = new Transaction
 
-                    //(SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
-                    //NumberShares, SqlConnections.currentStock.CurrentPrice, td, "Pending");
-                    //data.InsertTransaction(buyingStock);
-                    //updateUserFund(userNewFunds);
-                    msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "Congratulation, you set the limit to buy " + NumberShares + "share of " + SqlConnections.CurrentStockSymbol + " spending " + totalCost + " $ </font>";
+                //(SqlConnections.currentUser.Id, SqlConnections.currentStock.Id,
+                //NumberShares, SqlConnections.currentStock.CurrentPrice, td, "Pending");
+                //data.InsertTransaction(buyingStock);
+                //updateUserFund(userNewFunds);
+                msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "You set a limit order to buy  " +
+                +NumberShares + " shares of " + SqlConnections.CurrentStockSymbol + "for " + pricelimit + "$ each </font>";
             }
 
             }
@@ -89,6 +91,7 @@ namespace Stock_Market
             {
                 totalCost = Convert.ToDouble(Convert.ToInt32(amount.Text) * SqlConnections.currentStock.CurrentPrice);
                 double userNewFunds = SqlConnections.currentUser.Funds + totalCost;
+                double pricelimit = Convert.ToDouble(limitPrice.Text);
 
                 string td = dateTime.ToString("dd/MM/yyyy");
                 NumberShares = int.Parse(amount.Text);
@@ -109,7 +112,8 @@ namespace Stock_Market
                    // updateUserFund(userNewFunds);
 
                    // msg.Text = "Congratulation, you set the limit to sell " + NumberShares + "shares of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost + " $";
-                    msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;;'>" + "Congratulation, you set the limit to sell " + NumberShares + " share of " + SqlConnections.CurrentStockSymbol + " for  " + totalCost + " $ </font>";
+                    msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>" + "You set a limit order to sell  "+                  
+                    + NumberShares + " shares of " + SqlConnections.CurrentStockSymbol +"for "+ pricelimit + "$ each </font>";
             }
             }
 

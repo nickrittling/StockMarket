@@ -30,9 +30,26 @@
          <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
-        <div>
-            <asp:Literal ID="pendingOrder" runat="server"></asp:Literal>     
-            <asp:Literal ID="pendingOrderString" runat="server"></asp:Literal>    
+        <div style="margin-top:20px ; border-radius:20px; width:300px; background-color:lightcyan">
+            <table class='table table-borderless'>
+                <tr >
+                    <th>Order:</th>
+                    <th>Quantity</th>                  
+                    <th>Order price</th>
+                </tr>
+                <tr>
+                 <td>
+                    <asp:Literal ID="orderStatus" runat="server"></asp:Literal>
+                </td>
+                <td>
+                   <asp:Literal ID="quantity" runat="server"></asp:Literal>
+                </td>
+                <td>
+                   <asp:Literal ID="price" runat="server"></asp:Literal>
+               </td>
+                                           
+                </tr>                
+            </table>           
         </div>
   
    <div style="margin:30px" >

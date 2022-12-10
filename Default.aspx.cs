@@ -13,7 +13,7 @@ namespace Stock_Market
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            DateTime dateTime = DateTime.UtcNow.Date;
+            DateTime dateTime = DateTime.Now;
             date.Text = dateTime.ToString("dd/MM/yyyy");
         }
         protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)

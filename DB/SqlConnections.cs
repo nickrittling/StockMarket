@@ -21,7 +21,7 @@ namespace Stock_Market.DB
         public static string CurrentStockSymbol = null;
         private SqlConnection conn;
 
-
+        public static double pricelimit { get; internal set; }
 
         public SqlConnections()
         {

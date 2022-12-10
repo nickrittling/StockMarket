@@ -25,12 +25,13 @@
          <label for="formGroupExampleInput">Enter amount:</label>
         <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
     </div>
+     
     <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
          <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
     </div>
   </div>
-        <div style="margin-top:20px ; border-radius:20px; width:300px; background-color:lightcyan">
+        <div style="margin-top:20px ; border-radius:20px; width:300px; background-color:lightcyan ;display:none">
             <table class='table table-borderless'>
                 <tr >
                     <th>Order:</th>

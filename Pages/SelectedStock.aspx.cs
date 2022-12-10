@@ -2,11 +2,13 @@
 using Stock_Market.DB;
 using Stock_Market.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -19,27 +21,26 @@ namespace Stock_Market
         SqlConnections data;
         double totalCost;
         int NumberShares;
-       DBLocal localDB;
+        DBLocal localDB;
         DateTime dateTime = DateTime.Now;
         
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          data = new SqlConnections();
-          localDB = new DBLocal();
-          SelectStock();
+         data = new SqlConnections();
+         localDB = new DBLocal();
+         SelectStock();
+          // PendingOrders();
 
         }
         public void SelectStock()
         {
-            string sql = "SELECT [Id], [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol ='"+ SqlConnections.CurrentStockSymbol+"';"; 
+            string sql = "SELECT [Id], [Symbol], [StockName], [CurrentPrice] FROM [Stocks] WHERE [Stocks].Symbol = '" + SqlConnections.CurrentStockSymbol + "';";
             DataSet ds = data.ExecuteSelect(sql);
             SqlConnections.currentStock.CurrentPrice = Convert.ToDouble(ds.Tables[0].Rows[0][3]);// price from the table
-            SqlConnections. currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]); 
+            SqlConnections.currentStock.Id = Convert.ToInt32(ds.Tables[0].Rows[0][0]);
             GridView.DataSource = ds;
             GridView.DataBind();
-
-           
 
         }
 
@@ -51,7 +52,8 @@ namespace Stock_Market
 
             if (SqlConnections.currentUser.Funds < totalCost)
             {
-                msg.Text = "You don't have enough funds !";
+                msg.Text = "<font style='background : lightblue; padding:30px ; border-radius:20px;font-weight: bold;'>You don't have enough funds ! </font>";
+
             }
             else
             {
@@ -62,9 +64,9 @@ namespace Stock_Market
                 NumberShares, SqlConnections.currentStock.CurrentPrice, td,"Bough");
                 data.InsertTransaction(buyingStock);
                 updateUserFund(userNewFunds);
-                msg.Text = "Congratulation, you bought " + NumberShares+" of "+ SqlConnections.CurrentStockSymbol + " spending "+ totalCost+" $";
+                msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;'>"+ "Congratulation, you bought " + NumberShares+" share of "+ SqlConnections.CurrentStockSymbol + " spending "+ totalCost+" $ </font>";
 
-              //  Response.Redirect("/Pages/Contact");
+                //  Response.Redirect("/Pages/Contact");
 
             }
             
@@ -87,7 +89,7 @@ namespace Stock_Market
             // find in transaction table current user and current stock
             if (localDB.FindStock(SqlConnections.currentStock.Id)< NumberShares)
             {
-                msg.Text = "You don't have enough shares to sell";
+                msg.Text = "<font style='background : lightblue; padding:30px ; border-radius:20px;font-weight: bold;'>You don't have enought shares to sell! </font>";
             }
             else
             {
@@ -99,7 +101,7 @@ namespace Stock_Market
                 data.InsertTransaction(sellingStock);
                 updateUserFund(userNewFunds);
 
-                msg.Text = "Congratulation, you sold " + NumberShares + " of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost + " $";
+                msg.Text = "<font style='background : lightgreen; padding:30px ; border-radius:20px; font-weight: bold;;'>"+ "Congratulation, you sold " + NumberShares + " shares of " + SqlConnections.CurrentStockSymbol + " getting " + totalCost+ " $ </font>";
             }
         }
 
@@ -138,12 +140,25 @@ namespace Stock_Market
 
         public void PendingOrders()
         {
-            Transaction tr = localDB.FindPendingOrder(SqlConnections.currentStock.Id);
-            if (tr.StockAmount > 0)
-            {
-                pendingOrder.Text = "Order status     Quantity     LimitPrice";
-                pendingOrderString.Text = " Pending     " + tr.StockAmount + "    ";
-            }
+            // Transaction tr = localDB.FindPendingOrder(SqlConnections.currentStock.Id);
+            // if (tr !=null)
+            //{
+            //    orderStatus.Text = "Limit Sell";
+            //    quantity.Text = Convert.ToString(tr.StockAmount);
+            //    price.Text = Convert.ToString(tr.TransactionPrice);
+
+            //}
+            //else
+            //{
+                orderStatus.Text = "Limit Sell";
+                quantity.Text = Convert.ToString(NumberShares);
+                price.Text = Convert.ToString(SqlConnections.pricelimit);
+
+           // }
+
+
+               
+           //}
 
         }
     }

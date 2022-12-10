@@ -1,4 +1,15 @@
+<<<<<<< Updated upstream
 ﻿<!DOCTYPE html>
+=======
+﻿@{ 
+    bool isLoggedIn = true;
+    if(string.IsNullOrWhiteSpace(User.Identity.Name))
+    {
+        isLoggedIn = false;
+    }
+}
+<!DOCTYPE html>
+>>>>>>> Stashed changes
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,6 +31,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+<<<<<<< Updated upstream
+=======
+                    @{
+                        if (isLoggedIn)
+                        {
+                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
+                            <li>@Html.ActionLink("Signout", "Signout", "Accounts")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
+                            <li>@Html.ActionLink("Register", "Signin", "Accounts")</li>
+                        }
+                    }
+>>>>>>> Stashed changes
                 </ul>
             </div>
         </div>

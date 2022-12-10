@@ -14,9 +14,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< Updated upstream
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="MarketModel.User">
         <MappingFragment StoreEntitySet="User">
+=======
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="MarketModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="StockAmount" ColumnName="StockAmount" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Trade" ColumnName="Trade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MarketModel.User">
+        <MappingFragment StoreEntitySet="Users">
+>>>>>>> Stashed changes
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

@@ -18,7 +18,11 @@ namespace Stock_Market.DB
         {
             conn = new SqlConnection();
 
+<<<<<<< Updated upstream
             conn.ConnectionString = "Server=ss.cs.luc.edu;uid=nrittling;pwd=;" +
+=======
+            conn.ConnectionString = "Server=ss.cs.luc.edu;uid=nrittling;pwd=p02372;" +
+>>>>>>> Stashed changes
                   "Initial Catalog=Market";
             conn.Open();
 
@@ -37,5 +41,30 @@ namespace Stock_Market.DB
 
             return result;
         }
+<<<<<<< Updated upstream
+=======
+
+        public void ReturnUser()
+        {
+            string sql = "SELECT * from Users Where Id = " + currentUser.Id + "; ";
+            DataSet user = ExecuteSelect(sql);
+            currentUser.FirstName = Convert.ToString(user.Tables[0].Rows[0][1]);
+            currentUser.LastName = Convert.ToString(user.Tables[0].Rows[0][2]);
+            currentUser.Funds = Convert.ToDecimal(user.Tables[0].Rows[0][3]);
+
+        }
+
+        public void InsertTransaction(Transaction tr)
+        {       
+            string sql = " SET IDENTITY_INSERT Transactions ON INSERT INTO Transactions(TransactionId, UserID, StockID, StockAmount, Price, Trade)" +
+                " Values("+ tr.TransactionId+" ," + tr.UserID + "," + tr.StockID + "," + tr.StockAmount + "," + tr.Price + ",'"+tr.Trade+"');";
+            int result = ExecuteAction(sql);
+
+        }
+
+        
+
+         
+>>>>>>> Stashed changes
     }
 }

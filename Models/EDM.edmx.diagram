@@ -4,9 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< Updated upstream
       <Diagram DiagramId="d31e7703c2594ebc9194d9b9a888b0ca" Name="Diagram1">
         <EntityTypeShape EntityType="MarketModel.Stock" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MarketModel.User" Width="1.5" PointX="2.625" PointY="0.875" IsExpanded="true" />
+=======
+      <Diagram DiagramId="e3c1efca2e4c4ff394cb5701e16bac7c" Name="Diagram1">
+        <EntityTypeShape EntityType="MarketModel.Stock" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketModel.Transaction" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketModel.User" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="MarketModel.FK__Transacti__Stock__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketModel.FK__Transacti__UserI__4CA06362" ManuallyRouted="false" />
+>>>>>>> Stashed changes
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

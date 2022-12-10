@@ -7,10 +7,31 @@
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="Symbol" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="StockName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+<<<<<<< Updated upstream
     <Property Name="CurrentPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="WeeklyPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="MonthlyPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="ThreeMonthPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+=======
+    <Property Name="CurrentPrice" Type="Double" Nullable="false" />
+    <Property Name="WeeklyPrice" Type="Double" Nullable="false" />
+    <Property Name="MonthlyPrice" Type="Double" Nullable="false" />
+    <Property Name="ThreeMonthPrice" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__Stock__4D94879B" FromRole="Stocks" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="StockID" Type="Int32" Nullable="false" />
+    <Property Name="StockAmount" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Trade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Stock" Relationship="Self.FK__Transacti__Stock__4D94879B" FromRole="Transactions" ToRole="Stocks" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Transacti__UserI__4CA06362" FromRole="Transactions" ToRole="Users" />
+>>>>>>> Stashed changes
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -18,11 +39,54 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+<<<<<<< Updated upstream
     <Property Name="LastName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Funds" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityContainer Name="MarketEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Stocks" EntityType="Self.Stock" />
     <EntitySet Name="Users" EntityType="Self.User" />
+=======
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Funds" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__4CA06362" FromRole="Users" ToRole="Transactions" />
+  </EntityType>
+  <Association Name="FK__Transacti__Stock__4D94879B">
+    <End Role="Stocks" Type="Self.Stock" Multiplicity="1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stocks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__UserI__4CA06362">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MarketEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Stocks" EntityType="Self.Stock" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Transacti__Stock__4D94879B" Association="Self.FK__Transacti__Stock__4D94879B">
+      <End Role="Stocks" EntitySet="Stocks" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__UserI__4CA06362" Association="Self.FK__Transacti__UserI__4CA06362">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+>>>>>>> Stashed changes
   </EntityContainer>
 </Schema>

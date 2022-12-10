@@ -7,22 +7,84 @@
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Symbol" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="StockName" Type="nvarchar" MaxLength="50" Nullable="false" />
+<<<<<<< Updated upstream
     <Property Name="CurrentPrice" Type="money" Nullable="false" />
     <Property Name="WeeklyPrice" Type="money" Nullable="false" />
     <Property Name="MonthlyPrice" Type="money" Nullable="false" />
     <Property Name="ThreeMonthPrice" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
+=======
+    <Property Name="CurrentPrice" Type="float" Nullable="false" />
+    <Property Name="WeeklyPrice" Type="float" Nullable="false" />
+    <Property Name="MonthlyPrice" Type="float" Nullable="false" />
+    <Property Name="ThreeMonthPrice" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="StockAmount" Type="int" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="Trade" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+>>>>>>> Stashed changes
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
+<<<<<<< Updated upstream
     <Property Name="LastName" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="Funds" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityContainer Name="MarketModelStoreContainer">
     <EntitySet Name="Stocks" EntityType="Self.Stocks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+=======
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Funds" Type="money" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Transacti__Stock__4D94879B">
+    <End Role="Stocks" Type="Self.Stocks" Multiplicity="1" />
+    <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stocks">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__UserI__4CA06362">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MarketModelStoreContainer">
+    <EntitySet Name="Stocks" EntityType="Self.Stocks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Transacti__Stock__4D94879B" Association="Self.FK__Transacti__Stock__4D94879B">
+      <End Role="Stocks" EntitySet="Stocks" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__UserI__4CA06362" Association="Self.FK__Transacti__UserI__4CA06362">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+>>>>>>> Stashed changes
   </EntityContainer>
 </Schema>

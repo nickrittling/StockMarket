@@ -26,6 +26,10 @@ namespace Stock_Market.Models
         }
     
         public virtual DbSet<Stock> Stocks { get; set; }
+<<<<<<< Updated upstream
+=======
+        public virtual DbSet<Transaction> Transactions { get; set; }
+>>>>>>> Stashed changes
         public virtual DbSet<User> Users { get; set; }
     }
 }

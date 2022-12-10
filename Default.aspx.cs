@@ -19,6 +19,7 @@ namespace Stock_Market
         protected void GridView1_RowCommand1(object sender, GridViewCommandEventArgs e)
         {
 
+
             // Convert the row index stored in the CommandArgument
             // property to an Integer.
             int index = Convert.ToInt32(e.CommandArgument);
@@ -29,8 +30,12 @@ namespace Stock_Market
             string currectStock = stockName.Text;
 
             SqlConnections.CurrentStockSymbol = currectStock;
+            // If multiple ButtonField column fields are used, use the
+            // CommandName property to determine which button was clicked.
             if (e.CommandName == "Trade")
-            { 
+            {
+
+
                 Response.Redirect("/Pages/SelectedStock");
             }
             else

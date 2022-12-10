@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Order Limit" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SetUpLimit.aspx.cs" Inherits="Stock_Market.SetUpLimit" %>
+
+﻿<%@ Page Title="Set up the limit" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SetUpLimit.aspx.cs" Inherits="Stock_Market.SetUpLimit" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -9,7 +10,9 @@
 
   <div class="row">
    
-    <div class="col-sm-3" style="display:inline" >
+
+    <div class="col-sm-4" style="display:inline" >
+
          <label for="formGroupExampleInput">Select action:</label>
            <asp:DropDownList id="ActionList"
              AutoPostBack="True"
@@ -21,17 +24,15 @@
            <asp:ListItem Value="Sell"> Sell </asp:ListItem>
         </asp:DropDownList>
     </div>
-    <div class="col-sm-3"  style="display:inline">
-         <label for="formGroupExampleInput">Number Shares</label>
+
+    <div class="col-sm-4"  style="display:inline">
+         <label for="formGroupExampleInput">Limit price</label>
         <asp:TextBox class="form-control" ID="amount" runat="server" Text="0.00"></asp:TextBox>
     </div>
-    <div class="col-sm-3"  style="display:inline">
-         <label for="formGroupExampleInput">Limit price:</label>
-         <asp:TextBox class="form-control" ID="limitPrice" runat="server" Text="0.00"></asp:TextBox>
-    </div>
-     <div class="col-sm-3"  style="display:inline">
+    <div class="col-sm-4"  style="display:inline">
          <label for="formGroupExampleInput">Total:</label>
-     <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
+         <asp:TextBox class="form-control" ID="total" runat="server" Text="0.00"></asp:TextBox>
+
     </div>
   </div>
   

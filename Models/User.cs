@@ -14,9 +14,24 @@ namespace Stock_Market.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Transactions = new HashSet<Transaction>();
+        }
+    
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+<<<<<<< Updated upstream
         public string Funds { get; set; }
+=======
+        public decimal Funds { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
+        public string Email { get; internal set; }
+        public string Password { get; internal set; }
+>>>>>>> Stashed changes
     }
 }

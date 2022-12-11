@@ -34,6 +34,7 @@ namespace Stock_Market.Account
             Email.Text = "";
             Password.Text = "";
             FnameTxt.Focus();
+            Response.Redirect("~/Default.aspx");
         }
     }
 }

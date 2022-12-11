@@ -30,11 +30,15 @@ namespace Stock_Market.Account
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                HttpCookie userInfo = new HttpCookie("userInfo");
-                userInfo["UserID"] = "Annathurai";
-                userInfo["UserColor"] = "Black";
-                userInfo.Expires.Add(new TimeSpan(0, 1, 0));
-                Response.Cookies.Add(userInfo);
+                using(SqlDataReader oreader = cmd.ExecuteReader())
+                {
+                    oreader.Read();
+                    HttpCookie userInfo = new HttpCookie("userInfo");
+                    userInfo["UserID"] = oreader["Id"].ToString();
+                    userInfo.Expires.Add(new TimeSpan(0, 1, 0));
+                    Response.Cookies.Add(userInfo);
+                }
+                
                 Response.Redirect("~/Default.aspx");
 
             }

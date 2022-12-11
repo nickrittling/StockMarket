@@ -31,6 +31,17 @@ namespace Stock_Market.DB
                   "Initial Catalog=Market";
             conn.Open();
             currentUser.Id = 3; // THIS MUST COME FROM SIGN UP FORM
+            var request = HttpContext.Current.Request;
+            HttpCookie reqCookie = request.Cookies["userInfo"];
+            if(reqCookie != null)
+            {
+                currentUser.Id = Convert.ToInt32(reqCookie["UserId"].ToString());
+
+            }
+            /*
+             * 
+             */
+
             ReturnUser();
 
         }

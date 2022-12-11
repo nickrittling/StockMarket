@@ -27,10 +27,21 @@ namespace Stock_Market.DB
         {
             conn = new SqlConnection();
 
-            conn.ConnectionString = "Server=ss.cs.luc.edu;uid=ovelichko;pwd=******;" +
+            conn.ConnectionString = "Server=ss.cs.luc.edu;uid=nrittling;pwd=p02372;" +
                   "Initial Catalog=Market";
             conn.Open();
             currentUser.Id = 3; // THIS MUST COME FROM SIGN UP FORM
+            var request = HttpContext.Current.Request;
+            HttpCookie reqCookie = request.Cookies["userInfo"];
+            if(reqCookie != null)
+            {
+                currentUser.Id = Convert.ToInt32(reqCookie["UserId"].ToString());
+
+            }
+            /*
+             * 
+             */
+
             ReturnUser();
 
         }
